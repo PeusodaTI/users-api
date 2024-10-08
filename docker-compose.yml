@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  #database
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=userAPI
+      - POSTGRES_PASSWORD=userAPI
+      - POSTGRES_DB=userAPI
+    volumes:
+      - userAPI-data:/bitnami/postgresql
+      
+volumes:
+  userAPI-data:
