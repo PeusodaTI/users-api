@@ -17,6 +17,7 @@ export class PostgresCreateUserRepository implements ICreateUserRepository {
             })
 
             return user
+            
         } catch (error) {
             throw new Error('Erro ao criar usuário')
         }
