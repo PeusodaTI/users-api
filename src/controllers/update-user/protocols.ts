@@ -9,3 +9,7 @@ export interface UpdateUserParams {
 export interface IUpdateUserRepository {
     updateUser(id: string, params: UpdateUserParams): Promise<User>
 }
+
+export interface IGetUserByIdRepository {
+    getUserById(id:string): Promise<User>
+}
