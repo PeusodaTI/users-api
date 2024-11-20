@@ -4,6 +4,9 @@ import { PostgresGetUsersRepository } from './repositories/get-users/postgres-ge
 import { GetUserController } from './controllers/get-users/get-users'
 import { PostgresCreateUserRepository } from './repositories/create-users/postgres-create-user'
 import { CreateUserController } from './controllers/create-users/create-user'
+import { PostgresUpdateUserRepository } from './repositories/update-user/postgres-update-user'
+import { PostgresGetUserByIdRepository } from './repositories/get-user-by-id/postgres-get-user-by-id'
+import { UpdateUserController } from './controllers/update-user/update-user'
 
 config()
 
@@ -32,6 +35,18 @@ app.post('/user', async(request, response) => {
 
     response.status(statusCode).send(body)
  })
+
+app.put('/user/:id', async(request, response) => {
+    const postgresUpdateUserRepository = new PostgresUpdateUserRepository()
+
+    const postgresGetUserByIdRepository = new PostgresGetUserByIdRepository()
+
+    const updateUserController = new UpdateUserController(postgresUpdateUserRepository, postgresGetUserByIdRepository)
+
+    const { statusCode, body } = await updateUserController.handle({ params: request.params, body: request.body })
+
+    response.status(statusCode).send(body)
+})
 
 app.listen(port, () => {
     console.log('App em execução.')
